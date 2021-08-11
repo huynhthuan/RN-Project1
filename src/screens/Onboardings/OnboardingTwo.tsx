@@ -12,11 +12,12 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Assets from '../../config/Assets';
+import { TRootStackParamList } from '../../../App';
 
 const styles = StyleSheet.create({
   inner: {
@@ -64,9 +65,17 @@ const styles = StyleSheet.create({
   },
 });
 
-const OnboardingTwo = ({navigation}) => {
+type MainTabNavigationProp = StackNavigationProp<
+  TRootStackParamList
+>;
+
+type MainTabNavigationProps = {
+  navigation: MainTabNavigationProp;
+};
+
+const OnboardingTwo = ({ navigation }: MainTabNavigationProps) => {
   return (
-    <View style={styles.container}>
+    <View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.inner}>
           <Image
@@ -79,8 +88,8 @@ const OnboardingTwo = ({navigation}) => {
 
           <View>
             <LinearGradient
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 1}}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
               colors={['#53E88B', '#15BE77']}
               style={styles.buttonLinear}>
               <TouchableOpacity

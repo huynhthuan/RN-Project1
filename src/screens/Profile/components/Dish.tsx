@@ -1,5 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
+
+import LinearGradient from 'react-native-linear-gradient';
 
 const styles = StyleSheet.create({
   item: {
@@ -40,9 +42,35 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
     marginTop: 10,
   },
+  price: {
+    fontSize: 19,
+    color: 'rgba(83, 232, 139, 1)',
+    lineHeight: 25,
+  },
+  buttonLinear: {
+    borderRadius: 17.5,
+  },
+  buyAgainBtn: {
+    width: 85,
+    height: 29,
+  },
+  buyAginBtnText: {
+    textAlign: 'center',
+    color: '#fff',
+    lineHeight: 29,
+    fontSize: 12,
+    fontWeight: 'bold'
+  },
 });
 
-const ChatItem = ({name, avatar, time, desc}) => {
+type IDish = {
+  name: string;
+  avatar: ImageSourcePropType;
+  price: number;
+  desc: string;
+}
+
+const Dish = ({ name, avatar, price, desc }: IDish) => {
   return (
     <TouchableOpacity>
       <View style={styles.item}>
@@ -50,11 +78,21 @@ const ChatItem = ({name, avatar, time, desc}) => {
         <View style={styles.meta}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.desc}>{desc}</Text>
+          <Text style={styles.price}>$ {price}</Text>
         </View>
-        <Text style={styles.time}>{time}</Text>
+
+        <LinearGradient
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          colors={['#53E88B', '#15BE77']}
+          style={styles.buttonLinear}>
+          <TouchableOpacity style={styles.buyAgainBtn}>
+            <Text style={styles.buyAginBtnText}>Buy Again</Text>
+          </TouchableOpacity>
+        </LinearGradient>
       </View>
     </TouchableOpacity>
   );
 };
 
-export default ChatItem;
+export default Dish;

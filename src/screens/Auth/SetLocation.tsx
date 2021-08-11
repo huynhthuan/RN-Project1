@@ -12,11 +12,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import Assets from '../../config/Assets';
 
 import LinearGradient from 'react-native-linear-gradient';
+import { TRootStackParamList } from '../../../App';
 
 const styles = StyleSheet.create({
   container: {
@@ -148,7 +149,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const SetLocation = ({navigation}) => {
+type MainTabNavigationProp = StackNavigationProp<
+  TRootStackParamList
+>;
+
+type MainTabNavigationProps = {
+  navigation: MainTabNavigationProp;
+};
+
+const SetLocation = ({ navigation }: MainTabNavigationProps) => {
   return (
     <View style={styles.wrapAll}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -165,7 +174,6 @@ const SetLocation = ({navigation}) => {
               }}
               style={styles.buttonBack}>
               <Image
-                style={styles.buttonBackIcon}
                 source={Assets._icon_back}></Image>
             </TouchableOpacity>
           </View>
@@ -184,17 +192,17 @@ const SetLocation = ({navigation}) => {
               <Text style={styles.locationTitle}>Your Location</Text>
             </View>
 
-            <View style={styles.locationButtonWrap}>
+            <View >
               <TouchableOpacity style={styles.locationButton}>
-                <Text style={styles.locationButtonText}>Set Location</Text>
+                <Text >Set Location</Text>
               </TouchableOpacity>
             </View>
           </View>
 
           <View style={styles.buttonLinearWrap}>
             <LinearGradient
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 1}}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
               colors={['#53E88B', '#15BE77']}
               style={styles.buttonLinear}>
               <TouchableOpacity

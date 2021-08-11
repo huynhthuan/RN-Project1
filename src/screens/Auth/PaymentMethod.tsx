@@ -12,11 +12,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Assets from '../../config/Assets';
+import { TRootStackParamList } from '../../../App';
 
 const styles = StyleSheet.create({
   container: {
@@ -131,7 +132,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const PaymentMethod = ({navigation}) => {
+type MainTabNavigationProp = StackNavigationProp<
+  TRootStackParamList
+>;
+
+type MainTabNavigationProps = {
+  navigation: MainTabNavigationProp;
+};
+
+const PaymentMethod = ({ navigation }: MainTabNavigationProps) => {
   return (
     <View style={styles.wrapAll}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -148,7 +157,7 @@ const PaymentMethod = ({navigation}) => {
               }}
               style={styles.buttonBack}>
               <Image
-                style={styles.buttonBackIcon}
+
                 source={Assets._icon_back}></Image>
             </TouchableOpacity>
           </View>
@@ -160,24 +169,23 @@ const PaymentMethod = ({navigation}) => {
           </Text>
 
           <View style={styles.paymentMethods}>
-            <View style={styles.paymenetOption}>
+            <View >
               <TouchableOpacity style={styles.paymenetOptionButton}>
                 <Image
-                  style={styles.paymentIcon}
+
                   source={Assets._paypal}></Image>
               </TouchableOpacity>
             </View>
-            <View style={styles.paymenetOption}>
+            <View >
               <TouchableOpacity style={styles.paymenetOptionButton}>
                 <Image
-                  style={styles.paymentIcon}
+
                   source={Assets._visa}></Image>
               </TouchableOpacity>
             </View>
-            <View style={styles.paymenetOption}>
+            <View >
               <TouchableOpacity style={styles.paymenetOptionButton}>
                 <Image
-                  style={styles.paymentIcon}
                   source={Assets._payonner}></Image>
               </TouchableOpacity>
             </View>
@@ -185,8 +193,8 @@ const PaymentMethod = ({navigation}) => {
 
           <View style={styles.buttonLinearWrap}>
             <LinearGradient
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 1}}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
               colors={['#53E88B', '#15BE77']}
               style={styles.buttonLinear}>
               <TouchableOpacity

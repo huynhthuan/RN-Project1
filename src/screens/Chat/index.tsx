@@ -8,10 +8,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import Assets from '../../config/Assets';
 import ChatItem from './components/ChatItem';
+import { TRootStackParamList } from '../../../App';
+import { TMainTabParamList } from '../../nav/MainTab';
 
 const styles = StyleSheet.create({
   container: {
@@ -93,7 +95,15 @@ const data = [
   },
 ];
 
-const Chat = ({navigation}) => {
+type MainTabNavigationProp = StackNavigationProp<
+  TMainTabParamList
+>;
+
+type MainTabNavigationProps = {
+  navigation: MainTabNavigationProp;
+};
+
+const Chat = ({ navigation }: MainTabNavigationProps) => {
   return (
     <View style={styles.wrapAll}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -110,7 +120,6 @@ const Chat = ({navigation}) => {
               }}
               style={styles.buttonBack}>
               <Image
-                style={styles.buttonBackIcon}
                 source={Assets._icon_back}></Image>
             </TouchableOpacity>
           </View>

@@ -13,10 +13,11 @@ import {
 } from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, StackNavigationProp} from '@react-navigation/stack';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Assets from '../../config/Assets';
+import { TRootStackParamList } from '../../../App';
 
 const styles = StyleSheet.create({
   container: {
@@ -123,7 +124,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignUp = ({navigation}) => {
+type MainTabNavigationProp = StackNavigationProp<
+  TRootStackParamList
+>;
+
+type MainTabNavigationProps = {
+  navigation: MainTabNavigationProp;
+};
+
+const SignUp = ({navigation} : MainTabNavigationProps) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <ImageBackground
@@ -158,7 +167,7 @@ const SignUp = ({navigation}) => {
               <Image
                 style={styles.methodLoginIcon}
                 source={Assets._fb_icon}></Image>
-              <Text style={styles.methodLoginBtnText}>Facebook</Text>
+              <Text>Facebook</Text>
             </TouchableOpacity>
           </View>
 
@@ -171,7 +180,7 @@ const SignUp = ({navigation}) => {
               <Image
                 style={styles.methodLoginIcon}
                 source={Assets._google_icon}></Image>
-              <Text style={styles.methodLoginBtnText}>Google</Text>
+              <Text>Google</Text>
             </TouchableOpacity>
           </View>
         </View>

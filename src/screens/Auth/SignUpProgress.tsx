@@ -13,17 +13,13 @@ import {
 } from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, StackNavigationProp} from '@react-navigation/stack';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Assets from '../../config/Assets';
+import { TRootStackParamList } from '../../../App';
 
 const styles = StyleSheet.create({
-  wrapAll: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-
   container: {
     backgroundColor: '#fff',
     flexDirection: 'column',
@@ -115,52 +111,23 @@ const styles = StyleSheet.create({
     marginTop: '27%',
   },
 
-  forgotMethods: {
-    width: '100%',
-  },
-
-  forgotButton: {
-    borderRadius: 22,
-    elevation: 1,
-    marginBottom: 20,
-    paddingVertical: 27,
-    paddingHorizontal: 23,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
+  wrapAll: {
+    flex: 1,
     backgroundColor: '#fff',
-  },
-
-  forgotButtonImage: {
-    marginRight: 16,
-  },
-
-  forgotButtonText: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: 'rgba(130, 130, 130, 1)',
-    marginBottom: 4,
-  },
-
-  forgotDetail: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  forgotDots: {
-    marginRight: 14,
-  },
-
-  forgotDetailSuggest: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: 'rgba(9, 5, 28, 1)',
   },
 });
 
-const ForgotPassword = ({navigation}) => {
+type MainTabNavigationProp = StackNavigationProp<
+  TRootStackParamList
+>;
+
+type MainTabNavigationProps = {
+  navigation: MainTabNavigationProp;
+};
+
+const SignUpProgress = ({navigation} : MainTabNavigationProps) => {
   return (
-    <View style={{backgroundColor: '#fff', flex: 1}}>
+    <View style={styles.wrapAll}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <Image
@@ -169,56 +136,35 @@ const ForgotPassword = ({navigation}) => {
             source={Assets._bg_main_img}></Image>
 
           <View style={styles.buttonBackWrap}>
-            <TouchableOpacity style={styles.buttonBack}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('SignIn');
+              }}
+              style={styles.buttonBack}>
               <Image
-                style={styles.buttonBackIcon}
                 source={Assets._icon_back}></Image>
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.title}>Forgot password?</Text>
+          <Text style={styles.title}>Fill in your bio to get started</Text>
 
           <Text style={styles.desc}>
-            Select which contact details should we use to reset your password
+            This data will be displayed in your account profile for security
           </Text>
 
-          <View style={styles.forgotMethods}>
-            <View style={styles.forgotButtonWrap}>
-              <TouchableOpacity style={styles.forgotButton}>
-                <Image
-                  style={styles.forgotButtonImage}
-                  source={Assets._forgot_sms_icon}></Image>
-                <View style={styles.forgotMeta}>
-                  <Text style={styles.forgotButtonText}>Via sms:</Text>
-                  <View style={styles.forgotDetail}>
-                    <Image
-                      style={styles.forgotDots}
-                      source={Assets._dots}></Image>
-                    <Image
-                      style={styles.forgotDots}
-                      source={Assets._dots}></Image>
-                    <Text style={styles.forgotDetailSuggest}>2714</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.forgotButtonWrap}>
-              <TouchableOpacity style={styles.forgotButton}>
-                <Image
-                  style={styles.forgotButtonImage}
-                  source={Assets._forgot_email_icon}></Image>
-                <View style={styles.forgotMeta}>
-                  <Text style={styles.forgotButtonText}>Via email:</Text>
-                  <View style={styles.forgotDetail}>
-                    <Image
-                      style={styles.forgotDots}
-                      source={Assets._dots}></Image>
-                    <Text style={styles.forgotDetailSuggest}>@gmail.com</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>
+          <View style={styles.form}>
+            <TextInput
+              style={styles.input}
+              placeholder="First Name"
+              placeholderTextColor="rgba(59, 59, 59, 0.3)"></TextInput>
+            <TextInput
+              style={styles.input}
+              placeholder="Last Name"
+              placeholderTextColor="rgba(59, 59, 59, 0.3)"></TextInput>
+            <TextInput
+              style={styles.input}
+              placeholder="Mobile Number"
+              placeholderTextColor="rgba(59, 59, 59, 0.3)"></TextInput>
           </View>
 
           <View style={styles.buttonLinearWrap}>
@@ -227,7 +173,11 @@ const ForgotPassword = ({navigation}) => {
               end={{x: 1, y: 1}}
               colors={['#53E88B', '#15BE77']}
               style={styles.buttonLinear}>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('PaymentMethod');
+                }}
+                style={styles.button}>
                 <Text style={styles.buttonText}>Next</Text>
               </TouchableOpacity>
             </LinearGradient>
@@ -238,4 +188,4 @@ const ForgotPassword = ({navigation}) => {
   );
 };
 
-export default ForgotPassword;
+export default SignUpProgress;

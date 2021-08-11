@@ -13,10 +13,11 @@ import {
 } from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, StackNavigationProp} from '@react-navigation/stack';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Assets from '../../config/Assets';
+import { TRootStackParamList } from '../../../App';
 
 const styles = StyleSheet.create({
   container: {
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
   },
 
   desc: {
-    marginBottom: 20,
+    marginBottom: 38,
     lineHeight: 22,
     fontSize: 12,
     color: '#09051C',
@@ -110,13 +111,39 @@ const styles = StyleSheet.create({
     marginTop: '27%',
   },
 
+  code: {
+    borderRadius: 22,
+    elevation: 4,
+    height: 103,
+    width: '100%',
+    backgroundColor: '#fff',
+    paddingVertical: 28,
+    paddingHorizontal: 37,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  codeNumber: {
+    fontWeight: '600',
+    fontSize: 33,
+  },
+
   wrapAll: {
     flex: 1,
     backgroundColor: '#fff',
   },
 });
 
-const SignUpProgress = ({navigation}) => {
+type MainTabNavigationProp = StackNavigationProp<
+  TRootStackParamList
+>;
+
+type MainTabNavigationProps = {
+  navigation: MainTabNavigationProp;
+};
+
+const SignUpProgress = ({navigation} : MainTabNavigationProps) => {
   return (
     <View style={styles.wrapAll}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -127,36 +154,23 @@ const SignUpProgress = ({navigation}) => {
             source={Assets._bg_main_img}></Image>
 
           <View style={styles.buttonBackWrap}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('SignIn');
-              }}
-              style={styles.buttonBack}>
+            <TouchableOpacity style={styles.buttonBack}>
               <Image
-                style={styles.buttonBackIcon}
                 source={Assets._icon_back}></Image>
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.title}>Fill in your bio to get started</Text>
+          <Text style={styles.title}>Enter 4-digit{'\n'}Verification code</Text>
 
           <Text style={styles.desc}>
-            This data will be displayed in your account profile for security
+            Code send to +6282045****.{'\n'}This code will expired in 01:30
           </Text>
 
-          <View style={styles.form}>
-            <TextInput
-              style={styles.input}
-              placeholder="First Name"
-              placeholderTextColor="rgba(59, 59, 59, 0.3)"></TextInput>
-            <TextInput
-              style={styles.input}
-              placeholder="Last Name"
-              placeholderTextColor="rgba(59, 59, 59, 0.3)"></TextInput>
-            <TextInput
-              style={styles.input}
-              placeholder="Mobile Number"
-              placeholderTextColor="rgba(59, 59, 59, 0.3)"></TextInput>
+          <View style={styles.code}>
+            <Text style={styles.codeNumber}>2</Text>
+            <Text style={styles.codeNumber}>7</Text>
+            <Text style={styles.codeNumber}>1</Text>
+            <Text style={styles.codeNumber}>4</Text>
           </View>
 
           <View style={styles.buttonLinearWrap}>
@@ -165,11 +179,7 @@ const SignUpProgress = ({navigation}) => {
               end={{x: 1, y: 1}}
               colors={['#53E88B', '#15BE77']}
               style={styles.buttonLinear}>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('PaymentMethod');
-                }}
-                style={styles.button}>
+              <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>Next</Text>
               </TouchableOpacity>
             </LinearGradient>

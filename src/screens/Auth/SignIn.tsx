@@ -12,11 +12,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Assets from '../../config/Assets';
+import { TRootStackParamList } from '../../../App';
 
 const styles = StyleSheet.create({
   container: {
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
   inputIconEye: {
     position: 'absolute',
     right: 20,
-    left: null,
+    left: undefined,
   },
 
   options: {
@@ -136,15 +137,21 @@ const styles = StyleSheet.create({
   },
 });
 
-const SingIn = ({navigation}) => {
+type MainTabNavigationProp = StackNavigationProp<
+  TRootStackParamList
+>;
+
+type MainTabNavigationProps = {
+  navigation: MainTabNavigationProp;
+};
+
+const SingIn = ({ navigation }: MainTabNavigationProps) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <ImageBackground
         style={styles.container}
         source={Assets._onboarding_bg}>
-        <Image
-          style={styles.logo}
-          source={Assets._logo}></Image>
+        <Image style={styles.logo} source={Assets._logo}></Image>
 
         <Text style={styles.title}>Sign Up For Free</Text>
 
@@ -207,8 +214,8 @@ const SingIn = ({navigation}) => {
 
         <View>
           <LinearGradient
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 1}}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
             colors={['#53E88B', '#15BE77']}
             style={styles.buttonLinear}>
             <TouchableOpacity

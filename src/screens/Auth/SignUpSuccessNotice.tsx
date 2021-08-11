@@ -12,10 +12,11 @@ import {
 } from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, StackNavigationProp} from '@react-navigation/stack';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Assets from '../../config/Assets';
+import { TRootStackParamList } from '../../../App';
 
 const styles = StyleSheet.create({
   onboardingBg: {
@@ -63,7 +64,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignUpSuccessNotice = ({navigation}) => {
+type MainTabNavigationProp = StackNavigationProp<
+  TRootStackParamList
+>;
+
+type MainTabNavigationProps = {
+  navigation: MainTabNavigationProp;
+};
+
+const SignUpSuccessNotice = ({navigation} : MainTabNavigationProps) => {
   return (
     <ImageBackground
       style={styles.onboardingBg}

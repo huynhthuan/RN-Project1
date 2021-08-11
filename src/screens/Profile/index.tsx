@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
   },
   profileMembership: {
     width: 111,
-    height: 20,
     borderRadius: 18.5,
     height: 34,
     lineHeight: 34,
@@ -115,19 +114,19 @@ const data = [
   {
     name: 'Spacy fresh crab',
     desc: 'Waroenk kita',
-    price: '35',
+    price: 35,
     avatar: Assets._dish_1,
   },
   {
     name: 'Spacy fresh crab',
     desc: 'Waroenk kita',
-    price: '35',
+    price: 35,
     avatar: Assets._dish_1,
   },
   {
     name: 'Spacy fresh crab',
     desc: 'Waroenk kita',
-    price: '35',
+    price: 35,
     avatar: Assets._dish_1,
   },
 ];
@@ -151,15 +150,15 @@ const Profile = () => {
               <Text style={styles.profileMembership}>Member Gold</Text>
 
               <View style={styles.profileInfo}>
-                <View style={styles.profileInforLeft}>
+                <View>
                   <Text style={styles.profileName}>Anam Wusono</Text>
                   <Text style={styles.profileEmail}>anamwp66@gmail.com</Text>
                 </View>
 
-                <TouchableOpacity style={styles.profileEditWrap}>
+                <TouchableOpacity>
                   <Image
                     source={Assets._profile_edit_btn}
-                    style={styles.profileEditBtn}></Image>
+                  ></Image>
                 </TouchableOpacity>
               </View>
 

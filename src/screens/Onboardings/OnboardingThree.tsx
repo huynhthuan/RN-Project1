@@ -12,11 +12,12 @@ import {
 } from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 
 import Assets from '../../config/Assets';
 
 import LinearGradient from 'react-native-linear-gradient';
+import { TRootStackParamList } from '../../../App';
 
 const styles = StyleSheet.create({
   inner: {
@@ -64,9 +65,17 @@ const styles = StyleSheet.create({
   },
 });
 
-const OnboardingThree = ({navigation}) => {
+type MainTabNavigationProp = StackNavigationProp<
+  TRootStackParamList
+>;
+
+type MainTabNavigationProps = {
+  navigation: MainTabNavigationProp;
+};
+
+const OnboardingThree = ({navigation} : MainTabNavigationProps) => {
   return (
-    <View style={styles.container}>
+    <View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.inner}>
           <Image

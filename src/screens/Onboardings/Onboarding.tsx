@@ -10,10 +10,12 @@ import {
   Pressable,
 } from 'react-native';
 
-import {NavigationContainer} from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 
 import Assets from '../../config/Assets';
+import { TMainTabParamList } from '../../nav/MainTab';
+import { TRootStackParamList } from '../../../App';
 
 const styles = StyleSheet.create({
   onboardingBg: {
@@ -26,7 +28,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const Onboarding = ({navigation}) => {
+type MainTabNavigationProp = StackNavigationProp<
+  TRootStackParamList
+>;
+
+type MainTabNavigationProps = {
+  navigation: MainTabNavigationProp;
+};
+
+const Onboarding = ({ navigation }: MainTabNavigationProps) => {
   return (
     <ImageBackground
       style={styles.onboardingBg}
@@ -36,7 +46,6 @@ const Onboarding = ({navigation}) => {
           navigation.navigate('OnboardingTwo');
         }}>
         <Image
-          style={styles.logo}
           source={Assets._logo}></Image>
       </Pressable>
     </ImageBackground>
