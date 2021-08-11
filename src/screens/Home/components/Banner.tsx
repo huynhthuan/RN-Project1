@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Image, Dimensions} from 'react-native';
+import { StyleSheet, View, Image, Dimensions, ImageSourcePropType } from 'react-native';
 import Swiper from 'react-native-swiper';
 import Assets from '../../../config/Assets';
 
@@ -21,14 +21,24 @@ const styles = StyleSheet.create({
   },
 });
 
-const Banner = ({autoplay}) => {
+// interface IDataBanner {
+//   id: string;
+//   img: ImageSourcePropType;
+// }
+
+interface Props {
+  // dataBanner: IDataBanner;
+  autoplay: boolean;
+}
+
+const Banner = ({ autoplay = true }: Props) => {
   return (
     <View style={styles.slideContainer}>
       <Swiper
         style={styles.wrapper}
         autoplay={autoplay}
         showsButtons={false}
-        paginationStyle={{bottom: 4}}>
+        paginationStyle={{ bottom: 4 }}>
         <Image
           style={styles.slideImg}
           source={Assets._promo_banner}

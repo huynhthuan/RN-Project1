@@ -8,10 +8,12 @@ import {
   Pressable,
 } from 'react-native';
 
-import Header from  '../../components/Header';
-import Banner from  './components/Banner';
+import Header from '../../components/Header';
+import Banner from './components/Banner';
 import Assets from '../../config/Assets'
 import styles from '../../styles/Home';
+import { TRootStackParamList } from '../../../App';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const dataFootCat = [
   {
@@ -58,7 +60,16 @@ const dataMenu = [
   },
 ];
 
-const Home = ({navigation}) => {
+type MainTabNavigationProp = StackNavigationProp<
+  TRootStackParamList,
+  'MainTab'
+>;
+
+type MainTabNavigationProps = {
+  navigation: MainTabNavigationProp;
+};
+
+const Home = ({ navigation }: MainTabNavigationProps) => {
   return (
     <View style={styles.scrollContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -96,7 +107,7 @@ const Home = ({navigation}) => {
           <Banner autoplay={true}></Banner>
 
           {/* List Food Cat */}
-          <View style={styles.listContainer}>
+          <View>
             <View style={styles.listHeader}>
               <Text style={styles.listHeaderText}>Nearest Restaurant</Text>
               <Text style={styles.listHeaderTextMore}>View More</Text>
@@ -128,7 +139,7 @@ const Home = ({navigation}) => {
           </View>
 
           {/* List Menu */}
-          <View style={styles.listContainer}>
+          <View>
             <View style={[styles.listHeader, styles.mb20]}>
               <Text style={styles.listHeaderText}>Popular Menu</Text>
               <Text style={styles.listHeaderTextMore}>View More</Text>

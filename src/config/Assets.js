@@ -37,6 +37,8 @@ const Assets = {
   _profile_voucher_icon: require('../assets/img/voucher-icon.png'),
   _profile_edit_btn: require('../assets/img/edit-profile-btn.png'),
   _dish_1: require('../assets/img/dish.png'),
+  _plus_icon: require('../assets/img/plus-icon.png'),
+  _minus_icon: require('../assets/img/minus-icon.png'),
 };
 
 export default Assets;

@@ -7,7 +7,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {
+  BottomTabBarOptions,
+  BottomTabBarProps,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import * as IconlyPack from 'react-native-iconly';
 
 import Home from '../screens/Home/index';
@@ -17,7 +21,7 @@ import Chat from '../screens/Chat';
 
 const widthScreen = Dimensions.get('window').width;
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<TMainTabParamList>();
 
 const styles = StyleSheet.create({
   btnTab: {
@@ -64,6 +68,13 @@ const styles = StyleSheet.create({
   },
 });
 
+export type TMainTabParamList = {
+  Home: undefined;
+  Profile: undefined;
+  Cart: undefined;
+  Chat: undefined;
+};
+
 const MainTab = () => {
   return (
     <Tab.Navigator
@@ -104,10 +115,17 @@ const MainTab = () => {
   );
 };
 
-const MyTab = ({state, activeTintColor, inactiveTintColor, navigation}) => {
-  let routeNames = state.routeNames;
+type TRouteName = keyof TMainTabParamList;
+
+const MyTab = ({
+  state,
+  activeTintColor = 'rgba(83, 232, 139, 1)',
+  inactiveTintColor = 'rgba(83, 232, 139, .5)',
+  navigation,
+}: BottomTabBarProps<BottomTabBarOptions>) => {
+  let routeNames = state.routeNames as TRouteName[];
   let currentIndex = state.index; //index tab dang focus
-  const renderContent = (item, color) => {
+  const renderContent = (item: TRouteName, color: string) => {
     switch (item) {
       case 'Home':
         return <IconlyPack.Home set="bold" color={color} key={item} />;
@@ -140,7 +158,8 @@ const MyTab = ({state, activeTintColor, inactiveTintColor, navigation}) => {
         let color =
           currentIndex === index ? activeTintColor : inactiveTintColor;
         return (
-          <TouchableOpacity key={index}
+          <TouchableOpacity
+            key={index}
             style={styles.btnTab}
             onPress={() => navigation.navigate(item)}>
             {renderContent(item, color)}

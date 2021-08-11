@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../../components/Header';
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -15,9 +15,14 @@ import {
 import styles from '../../styles/Filter';
 import Assets from '../../config/Assets';
 
-const Section = ({title, data}) => {
+interface sectionProps {
+  title: string;
+  data: any[];
+}
+
+const Section = ({ title, data }: sectionProps) => {
   return (
-    <View style={styles.filterBox}>
+    <View>
       <View style={styles.filterHeading}>
         <Text style={styles.filterHeadingText}>{title}</Text>
       </View>
@@ -46,8 +51,10 @@ const Filter = () => {
     'Dessert',
   ];
 
+  const [foodCats, filterFoodCat] = useState(dataFilterFood);
+
   return (
-    <ScrollView>
+    <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
       <View style={styles.container}>
         {/* Header */}
 
@@ -64,19 +71,27 @@ const Filter = () => {
             <TextInput
               style={styles.searchPlaceholder}
               placeholder=" What do you want to order?"
-              placeholderTextColor="#DA6317"></TextInput>
+              placeholderTextColor="#DA6317"
+              onChangeText={text => {
+                if (text) {
+                  filterFoodCat(dataFilterFood.filter((cat) => cat.toLocaleLowerCase().includes(text.toLocaleLowerCase())))
+                } else {
+                  filterFoodCat(dataFilterFood)
+                }
+              }}
+            ></TextInput>
           </View>
         </View>
 
         {/* Filter list */}
-        <Section title="Type" data={dataFilterType}></Section>
-        <Section title="Location" data={dataFilterLocation}></Section>
-        <Section title="Food" data={dataFilterFood}></Section>
+        {/* <Section title="Type" data={dataFilterType}></Section>
+        <Section title="Location" data={dataFilterLocation}></Section> */}
+        <Section title="Food" data={foodCats}></Section>
 
         <View>
           <LinearGradient
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 1}}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
             colors={['#53E88B', '#15BE77']}
             style={styles.filterBtnWrap}>
             <TouchableOpacity style={styles.filterBtn}>
@@ -85,7 +100,7 @@ const Filter = () => {
           </LinearGradient>
         </View>
       </View>
-    </ScrollView>
+    </ScrollView >
   );
 };
 

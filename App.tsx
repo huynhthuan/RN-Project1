@@ -27,10 +27,30 @@ import Filter from './src/screens/Filter/index';
 
 import MainTab from './src/nav/MainTab';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const Stack = createStackNavigator();
+export type TRootStackParamList = {
+  Onboarding: undefined;
+  OnboardingTwo: undefined;
+  OnboardingThree: undefined;
+  SignUp: undefined;
+  SignIn: undefined;
+  SignUpProgress: undefined;
+  PaymentMethod: undefined;
+  UploadPhoto: undefined;
+  UploadPreview: undefined;
+  SetLocation: undefined;
+  SignUpSuccessNotice: undefined;
+  VerificationCode: undefined;
+  ForgotPassword: undefined;
+  ResetPassword: undefined;
+  ResetPasswordSuccessNotice: undefined;
+  MainTab: undefined;
+  Filter: undefined;
+}
+
+const Stack = createStackNavigator<TRootStackParamList>();
 
 const App = () => {
   return (
@@ -53,67 +73,67 @@ const App = () => {
         <Stack.Screen
           name="OnboardingThree"
           component={OnboardingThree}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="SignUp"
           component={SignUp}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="SignIn"
           component={SignIn}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="SignUpProgress"
           component={SignUpProgress}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="PaymentMethod"
           component={PaymentMethod}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="UploadPhoto"
           component={UploadPhoto}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="UploadPreview"
           component={UploadPreview}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="SetLocation"
           component={SetLocation}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="SignUpSuccessNotice"
           component={SignUpSuccessNotice}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="VerificationCode"
           component={VerificationCode}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="ForgotPassword"
           component={ForgotPassword}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="ResetPassword"
           component={ResetPassword}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="ResetPasswordSuccessNotice"
           component={ResetPasswordSuccessNotice}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="MainTab"
@@ -125,7 +145,7 @@ const App = () => {
         <Stack.Screen
           name="Filter"
           component={Filter}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
