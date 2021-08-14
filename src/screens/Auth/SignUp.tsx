@@ -134,7 +134,7 @@ type MainTabNavigationProps = {
 
 const SignUp = ({navigation} : MainTabNavigationProps) => {
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView style={{flex: 1, backgroundColor: "#fff"}} showsVerticalScrollIndicator={false}>
       <ImageBackground
         style={styles.container}
         source={Assets._onboarding_bg}>

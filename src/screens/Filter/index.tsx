@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header';
+import debounce from 'lodash.debounce';
+import dayjs from 'dayjs';
 
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -51,7 +53,16 @@ const Filter = () => {
     'Dessert',
   ];
 
-  const [foodCats, filterFoodCat] = useState(dataFilterFood);
+  const [foodCats, setDataFilter] = useState(dataFilterFood);
+
+  const onChangeText = React.useCallback(debounce(text => {
+    let result = dataFilterFood.filter(cat => cat.includes(text))
+    setDataFilter(result);
+  }, 300), [foodCats]);
+
+  const timeStamp = React.useMemo(() => {
+    return new Date().valueOf()
+  }, [new Date()]);
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -72,13 +83,7 @@ const Filter = () => {
               style={styles.searchPlaceholder}
               placeholder=" What do you want to order?"
               placeholderTextColor="#DA6317"
-              onChangeText={text => {
-                if (text) {
-                  filterFoodCat(dataFilterFood.filter((cat) => cat.toLocaleLowerCase().includes(text.toLocaleLowerCase())))
-                } else {
-                  filterFoodCat(dataFilterFood)
-                }
-              }}
+              onChangeText={onChangeText}
             ></TextInput>
           </View>
         </View>

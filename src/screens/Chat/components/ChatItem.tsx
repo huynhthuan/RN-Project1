@@ -51,15 +51,13 @@ type IChatItem = {
 
 const ChatItem = ({ name, avatar, time, desc }: IChatItem) => {
   return (
-    <TouchableOpacity>
-      <View style={styles.item}>
-        <Image style={styles.ava} source={avatar} resizeMode="cover"></Image>
-        <View style={styles.meta}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.desc}>{desc}</Text>
-        </View>
-        <Text style={styles.time}>{time}</Text>
+    <TouchableOpacity style={styles.item}>
+      <Image style={styles.ava} source={avatar} resizeMode="cover"></Image>
+      <View style={styles.meta}>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.desc}>{desc}</Text>
       </View>
+      <Text style={styles.time}>{time}</Text>
     </TouchableOpacity>
   );
 };

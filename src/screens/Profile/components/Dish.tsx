@@ -72,25 +72,23 @@ type IDish = {
 
 const Dish = ({ name, avatar, price, desc }: IDish) => {
   return (
-    <TouchableOpacity>
-      <View style={styles.item}>
-        <Image style={styles.ava} source={avatar} resizeMode="cover"></Image>
-        <View style={styles.meta}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.desc}>{desc}</Text>
-          <Text style={styles.price}>$ {price}</Text>
-        </View>
-
-        <LinearGradient
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          colors={['#53E88B', '#15BE77']}
-          style={styles.buttonLinear}>
-          <TouchableOpacity style={styles.buyAgainBtn}>
-            <Text style={styles.buyAginBtnText}>Buy Again</Text>
-          </TouchableOpacity>
-        </LinearGradient>
+    <TouchableOpacity style={styles.item}>
+      <Image style={styles.ava} source={avatar} resizeMode="cover"></Image>
+      <View style={styles.meta}>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.desc}>{desc}</Text>
+        <Text style={styles.price}>$ {price}</Text>
       </View>
+
+      <LinearGradient
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        colors={['#53E88B', '#15BE77']}
+        style={styles.buttonLinear}>
+        <TouchableOpacity style={styles.buyAgainBtn}>
+          <Text style={styles.buyAginBtnText}>Buy Again</Text>
+        </TouchableOpacity>
+      </LinearGradient>
     </TouchableOpacity>
   );
 };

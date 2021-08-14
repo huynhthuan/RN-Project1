@@ -10,6 +10,7 @@ import {
 import { StyleSheet, Text, View } from 'react-native';
 import Assets from '../../config/Assets';
 import { TMainTabParamList } from '../../nav/MainTab';
+import Footer, { RefFooter } from './components/Footer';
 import ItemCart from './components/ItemCart';
 
 const styles = StyleSheet.create({
@@ -117,10 +118,74 @@ const dataProduct: IProduct[] = [
   },
 ];
 
+interface IStateCart {
+  dataCart: IProduct[],
+  refreshing: boolean,
+}
+
+interface IActionCart {
+  type: string
+}
+
+const initStateCart: IStateCart = {
+  dataCart: dataProduct,
+  refreshing: false
+}
+
+const reducerCart = (state: IStateCart, action: IActionCart): IStateCart => {
+  switch (action.type) {
+    case 'onEndReached':
+      return {
+        ...state,
+        dataCart: state.dataCart.concat(dataProduct)
+      }
+    case 'onRefreshLoading':
+      return {
+        ...state,
+        refreshing: true
+      }
+    case 'onRefresh':
+      return initStateCart;
+    default:
+      return initStateCart;
+  }
+}
+
 const Cart = ({ navigation }: MainTabNavigationProps) => {
   const [refreshing, setRefreshing] = React.useState<boolean>(false);
-  const [dataCart, setDataCart] = React.useState<IProduct[]>(dataProduct);
-  const [isLoadMore, setIsLoadMore] = React.useState<boolean>(false);
+  // const [dataCart, setDataCart] = React.useState<IProduct[]>(dataProduct);
+  const refListOrder = React.useRef<FlatList>(null);
+  const indexPage = React.useRef<number>(0);
+  const refFooter = React.useRef<RefFooter>(null);
+  const [stateCart, dispatch] = React.useReducer(reducerCart, initStateCart);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      dispatch({ type: 'onRefresh' });
+      setRefreshing(false);
+    }, 2000)
+  }, []);
+
+  const onEndReached = React.useCallback(() => {
+    indexPage.current = indexPage.current + 1;
+    refFooter.current?.setIsLoadMore(true);
+    setTimeout(() => {
+      dispatch({ type: 'onEndReached' });
+      refFooter.current?.setIsLoadMore(false);
+    }, 500)
+  }, []);
+
+  const renderListFooter = React.useCallback(() => {
+    return (
+      <Footer ref={refFooter} />
+    )
+  }, []);
+
+  const renderItem = React.useCallback(({ item }) => <ItemCart item={item}></ItemCart>, []);
+
+  const keyExtractor = React.useCallback((item, index) => index.toString(), []);
+
   return (
     <View style={styles.wrapAll}>
       <View style={styles.container}>
@@ -139,37 +204,22 @@ const Cart = ({ navigation }: MainTabNavigationProps) => {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.title}>Order details</Text>
+        <Text style={styles.title} onPress={() => {
+          refListOrder.current?.scrollToIndex({
+            index: 0
+          })
+        }}>Order details</Text>
 
         <FlatList style={{ width: '100%' }}
-          data={dataCart}
-          renderItem={({ item }) => <ItemCart item={item}></ItemCart>}
-          keyExtractor={(item, index) => index.toString()}
+          ref={refListOrder}
+          data={stateCart.dataCart}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
           refreshing={refreshing}
-          onRefresh={() => {
-            setRefreshing(true);
-            setTimeout(() => {
-              setDataCart(dataProduct);
-              setRefreshing(false);
-            }, 2000)
-          }}
+          onRefresh={onRefresh}
           onEndReachedThreshold={0.5}
-          onEndReached={
-            () => {
-              setIsLoadMore(true);
-              setTimeout(() => {
-                setDataCart(prev => prev.concat(dataProduct));
-                setIsLoadMore(false);
-              }, 500)
-            }
-          }
-          ListFooterComponent={() => {
-            return (
-              <View style={styles.footerList}>
-                {!!isLoadMore && <ActivityIndicator color="#15BE77"></ActivityIndicator>}
-              </View>
-            )
-          }}
+          onEndReached={onEndReached}
+          ListFooterComponent={renderListFooter}
         ></FlatList>
       </View>
     </View>
